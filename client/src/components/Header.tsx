@@ -111,7 +111,7 @@ export default function Header() {
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <img 
-            src="https://www.harvard.edu/wp-content/uploads/2021/02/harvard-shield-logo-1.png" 
+            src="/veritas-shield.png" 
             alt="Harvard Logo" 
             className="h-8" 
           />
