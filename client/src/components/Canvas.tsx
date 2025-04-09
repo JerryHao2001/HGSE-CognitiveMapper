@@ -105,7 +105,7 @@ function CanvasContent() {
     setEditEdge({
       id: edge.id,
       label: edge.label || 'Relates to',
-      description: edge.description || '',
+      description: '', // Keeping this property but we won't use it in the UI
     });
   }, []);
 
@@ -323,23 +323,20 @@ function CanvasContent() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit Link</DialogTitle>
+            <DialogDescription>
+              Enter the relationship between the connected nodes
+            </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-2">
             <div className="space-y-2">
-              <Label htmlFor="edge-label">Label</Label>
-              <Input 
+              <Label htmlFor="edge-label">Link Text</Label>
+              <Textarea 
                 id="edge-label" 
                 value={editEdge?.label || ''} 
                 onChange={(e) => setEditEdge(prev => prev ? {...prev, label: e.target.value} : null)}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="edge-description">Description (optional)</Label>
-              <Textarea 
-                id="edge-description" 
-                value={editEdge?.description || ''}
-                onChange={(e) => setEditEdge(prev => prev ? {...prev, description: e.target.value} : null)}
-                rows={2}
+                rows={4}
+                placeholder="Enter the relationship between these nodes (e.g., 'influences', 'leads to', 'contradicts')"
+                className="min-h-[120px]"
               />
             </div>
           </div>
