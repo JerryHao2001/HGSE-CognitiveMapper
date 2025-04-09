@@ -68,7 +68,8 @@ function CanvasContent() {
   } = useMap();
 
   const handleAddNode = useCallback(() => {
-    const position = reactFlowInstance.project({ 
+    // Use screenToFlowPosition instead of the deprecated project method
+    const position = reactFlowInstance.screenToFlowPosition({ 
       x: window.innerWidth / 2, 
       y: window.innerHeight / 2 
     });
