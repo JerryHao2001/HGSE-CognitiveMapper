@@ -29,7 +29,7 @@ export function MapProvider({ children }: { children: ReactNode }) {
     const newEdge = {
       ...connection,
       id: uuidv4(),
-      type: 'default',
+      type: 'custom',
       label: 'Relates to',
       markerEnd: {
         type: MarkerType.ArrowClosed,

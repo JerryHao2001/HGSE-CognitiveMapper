@@ -5,6 +5,10 @@ import ReactFlow, {
   Panel,
   useReactFlow,
   ReactFlowProvider,
+  EdgeTypes,
+  ConnectionMode,
+  MarkerType,
+  BackgroundVariant,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { Button } from '../components/ui/button';
@@ -19,6 +23,7 @@ import {
 } from 'lucide-react';
 import { useMap } from '../context/MapContext';
 import CustomNode from './CustomNode';
+import CustomEdge from './CustomEdge';
 import { 
   Dialog,
   DialogContent,
@@ -34,6 +39,10 @@ import { useToast } from '../hooks/use-toast';
 
 const nodeTypes = {
   custom: CustomNode,
+};
+
+const edgeTypes = {
+  custom: CustomEdge,
 };
 
 function CanvasContent() {
@@ -245,14 +254,15 @@ function CanvasContent() {
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
           nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
           onNodeDoubleClick={handleNodeDoubleClick}
           onEdgeDoubleClick={handleEdgeDoubleClick}
-          connectionMode="loose"
+          connectionMode={ConnectionMode.Loose}
           defaultEdgeOptions={{
             style: { stroke: '#A31F36', strokeWidth: 2 },
-            type: 'default',
+            type: 'custom',
             markerEnd: {
-              type: 'arrowclosed',
+              type: MarkerType.ArrowClosed,
               color: '#A31F36',
             },
           }}
@@ -267,7 +277,7 @@ function CanvasContent() {
             color="#ddd" 
             gap={20} 
             size={1}
-            variant="dots" 
+            variant={BackgroundVariant.Dots} 
           />
         </ReactFlow>
       </div>
