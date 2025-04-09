@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Button } from '../components/ui/button';
 import { Download, Save, HelpCircle, X } from 'lucide-react';
 import { toPng } from 'html-to-image';
+// Import Harvard shield image
+import HarvardShield from '@assets/Harvard_shield-Education.png';
 import { 
   Dialog,
   DialogContent,
@@ -111,9 +113,9 @@ export default function Header() {
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <img 
-            src="https://www.harvard.edu/wp-content/uploads/2021/02/harvard-shield-logo-1.png" 
-            alt="Harvard Logo" 
-            className="h-8" 
+            src={HarvardShield} 
+            alt="Harvard Shield" 
+            className="h-9" 
           />
           <h1 className="text-xl font-bold">HGSE Cognitive Map Builder</h1>
         </div>
