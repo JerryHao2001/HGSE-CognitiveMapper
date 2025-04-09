@@ -16,7 +16,12 @@ function CustomEdge({
   data,
 }: EdgeProps<CustomEdgeData>) {
   
-  const [edgePath, labelX, labelY] = getStraightPath({
+  // Calculate the exact middle point between source and target
+  const midX = (sourceX + targetX) / 2;
+  const midY = (sourceY + targetY) / 2;
+  
+  // Get the path for the edge
+  const [edgePath] = getStraightPath({
     sourceX,
     sourceY,
     targetX,
@@ -29,25 +34,28 @@ function CustomEdge({
       {label && (
         <foreignObject
           width={300}
-          height={1000} // Set a large enough height
-          x={labelX - 150}
-          y={labelY - 15} // Center vertically with a small offset
+          height={60} 
+          x={midX - 150}
+          y={midY - 30}
           className="edge-label-container"
           requiredExtensions="http://www.w3.org/1999/xhtml"
-          style={{ overflow: 'visible', pointerEvents: 'none' }}
+          style={{ overflow: 'visible' }}
         >
           <div 
-            className="px-3 py-2 bg-white border-2 border-crimson/70 rounded-lg shadow-sm text-center text-sm font-medium text-crimson inline-block"
-            style={{ 
-              maxWidth: '280px',
-              margin: '0 auto',
-              wordBreak: 'break-word', 
-              overflowWrap: 'break-word',
-              whiteSpace: 'normal',
-              pointerEvents: 'auto'
-            }}
+            className="h-full w-full flex items-center justify-center"
           >
-            {label}
+            <span 
+              className="px-3 py-1 bg-white border-2 border-crimson/70 rounded-lg shadow-sm text-center text-sm font-medium text-crimson"
+              style={{ 
+                display: 'inline-block',
+                maxWidth: '280px',
+                wordBreak: 'break-word',
+                whiteSpace: 'normal',
+                overflowWrap: 'break-word'
+              }}
+            >
+              {label}
+            </span>
           </div>
         </foreignObject>
       )}
