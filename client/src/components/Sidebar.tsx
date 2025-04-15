@@ -3,7 +3,6 @@ import { Button } from '../components/ui/button';
 import { Textarea } from '../components/ui/textarea';
 import { Input } from '../components/ui/input';
 import { useMap } from '../context/MapContext';
-const { setInitialNodes, getMapState } = useMap();
 import { generateNodesFromTopic, sendChatMessage } from '../lib/api';
 import { ChevronLeft, ChevronRight, Send, Brain } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
@@ -11,6 +10,7 @@ import { ChatMessage } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function Sidebar() {
+  const { setInitialNodes, getMapState } = useMap();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [topic, setTopic] = useState('');
   const [message, setMessage] = useState('');
