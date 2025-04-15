@@ -258,7 +258,7 @@ function CanvasContent() {
           edgeTypes={edgeTypes}
           onNodeDoubleClick={handleNodeDoubleClick}
           onEdgeDoubleClick={handleEdgeDoubleClick}
-          connectionMode={ConnectionMode.Strict}
+          connectionMode={ConnectionMode.Loose}
           defaultEdgeOptions={{
             style: { stroke: '#A31F36', strokeWidth: 2 },
             type: 'custom',
