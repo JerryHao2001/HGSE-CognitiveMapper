@@ -36,7 +36,7 @@ export async function getChatResponse(
 ) {
   try {
     let systemContent =
-      "You are a helpful assistant specializing in cognitive mapping, analysis of complex topics, and educational methodologies. Help the user understand concepts, brainstorm ideas for their cognitive maps, and provide thoughtful responses to their questions. Your answers should be concise but comprehensive.";
+      "You are a helpful assistant specializing in cognitive mapping, analysis of complex topics, and educational methodologies. Help the user understand concepts, brainstorm ideas for their cognitive maps, and provide thoughtful responses to their questions. Your answers should be concise but comprehensive.  Please respond in plain text without any markdown formatting or code styling.";
 
     if (mapState && (mapState.nodes.length > 0 || mapState.edges.length > 0)) {
       systemContent += "\n\nCurrent cognitive map state:\n";

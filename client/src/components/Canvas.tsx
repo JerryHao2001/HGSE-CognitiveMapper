@@ -105,7 +105,7 @@ function CanvasContent() {
   const handleEdgeDoubleClick = useCallback((event: React.MouseEvent, edge: any) => {
     setEditEdge({
       id: edge.id,
-      label: edge.label || 'Relates to',
+      label: edge.label || 'Enter Link Relationship',
       description: '', // Keeping this property but we won't use it in the UI
     });
   }, []);
