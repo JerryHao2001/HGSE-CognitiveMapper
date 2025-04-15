@@ -44,8 +44,18 @@ export async function getChatResponse(
 
     if (mapState && (mapState.nodes.length > 0 || mapState.edges.length > 0)) {
       systemContent += "\n\nCurrent cognitive map state:\n";
-      systemContent += `Nodes (${mapState.nodes.length}):${mapState.nodes.map((n) => `\n- ${n.data.label}: ${n.data.description || "No description"}`).join("")}`;
-      systemContent += `\n\nConnections (${mapState.edges.length}):${mapState.edges.map((e) => `\n- ${e.label || "Relates to"}`).join("")}`;
+      const nodesStr = mapState.nodes.map(n => `- ${n.data.label}: ${n.data.description || 'No description'}`).join('\n');
+
+      // Create a map of node IDs to their labels for quick lookup
+      const nodeLabels = new Map(mapState.nodes.map(n => [n.id, n.data.label]));
+
+      const edgesStr = mapState.edges.map(e => {
+        const sourceLabel = nodeLabels.get(e.source) || 'Unknown source';
+        const targetLabel = nodeLabels.get(e.target) || 'Unknown target';
+        return `- ${sourceLabel} -> ${e.label || 'Unlabeled edge'} -> ${targetLabel}`;
+      }).join('\n');
+
+      systemContent += `Nodes (${mapState.nodes.length}):\n${nodesStr}\n\nConnections (${mapState.edges.length}):\n${edgesStr}`;
     } else {
       systemContent += "\n\nThere is no existing cognitive map on the canvas.";
     }
