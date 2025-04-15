@@ -2,7 +2,11 @@ import OpenAI from "openai";
 
 // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openai = new OpenAI({
+  apiKey: process.env.AZURE_OPENAI_API_KEY,
+  baseURL: process.env.AZURE_OPENAI_ENDPOINT,
+});
+// const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export async function generateNodesByTopic(topic: string) {
   try {
