@@ -11,13 +11,13 @@ export async function generateNodesByTopic(topic: string) {
       messages: [
         {
           role: "system",
-          content: 
-            "You are an expert in cognitive mapping and analyzing complex topics. Given a topic or statement, identify 5-8 key components, concepts, or perspectives that would be helpful to include in a cognitive map. Respond with JSON containing an array of nodes, where each node has an id, position (x,y coordinates), and data (with label and description). Position the nodes in a radial pattern around the center of the canvas (x:400, y:300)."
+          content:
+            "You are an expert in cognitive mapping and analyzing complex topics. Given a topic or statement, identify 5-8 key components, concepts, or perspectives that would be helpful to include in a cognitive map. Respond with JSON containing an array of nodes, where each node has an id, position (x,y coordinates), and data (with label and description). Position the nodes in a radial pattern around the center of the canvas (x:400, y:300).",
         },
         {
           role: "user",
-          content: `Generate nodes for a cognitive map on this topic: "${topic}". Respond with JSON in the format: { "nodes": [{ "id": "string", "type": "custom", "position": { "x": number, "y": number }, "data": { "label": "string", "description": "string" }}] }`
-        }
+          content: `Generate nodes for a cognitive map on this topic: "${topic}". Respond with JSON in the format: { "nodes": [{ "id": "string", "type": "custom", "position": { "x": number, "y": number }, "data": { "label": "string", "description": "string" }}] }`,
+        },
       ],
       response_format: { type: "json_object" },
     });
@@ -30,14 +30,20 @@ export async function generateNodesByTopic(topic: string) {
   }
 }
 
-export async function getChatResponse(message: string, mapState?: { nodes: any[], edges: any[] }) {
+export async function getChatResponse(
+  message: string,
+  mapState?: { nodes: any[]; edges: any[] },
+) {
   try {
-    let systemContent = "You are a helpful assistant specializing in cognitive mapping, analysis of complex topics, and educational methodologies. Help the user understand concepts, brainstorm ideas for their cognitive maps, and provide thoughtful responses to their questions. Your answers should be concise but comprehensive.";
-    
+    let systemContent =
+      "You are a helpful assistant specializing in cognitive mapping, analysis of complex topics, and educational methodologies. Help the user understand concepts, brainstorm ideas for their cognitive maps, and provide thoughtful responses to their questions. Your answers should be concise but comprehensive.";
+
     if (mapState && (mapState.nodes.length > 0 || mapState.edges.length > 0)) {
       systemContent += "\n\nCurrent cognitive map state:\n";
-      systemContent += `Nodes (${mapState.nodes.length}):${mapState.nodes.map(n => `\n- ${n.data.label}: ${n.data.description || 'No description'}`).join('')}`;
-      systemContent += `\n\nConnections (${mapState.edges.length}):${mapState.edges.map(e => `\n- ${e.label || 'Relates to'}`).join('')}`;
+      systemContent += `Nodes (${mapState.nodes.length}):${mapState.nodes.map((n) => `\n- ${n.data.label}: ${n.data.description || "No description"}`).join("")}`;
+      systemContent += `\n\nConnections (${mapState.edges.length}):${mapState.edges.map((e) => `\n- ${e.label || "Relates to"}`).join("")}`;
+    } else {
+      systemContent += "\n\nThere is no existing cognitive map on the canvas.";
     }
 
     const response = await openai.chat.completions.create({
@@ -45,12 +51,12 @@ export async function getChatResponse(message: string, mapState?: { nodes: any[]
       messages: [
         {
           role: "system",
-          content: systemContent
+          content: systemContent,
         },
         {
           role: "user",
-          content: message
-        }
+          content: message,
+        },
       ],
       max_tokens: 500,
     });
