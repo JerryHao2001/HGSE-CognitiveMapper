@@ -30,15 +30,22 @@ export async function generateNodesByTopic(topic: string) {
   }
 }
 
-export async function getChatResponse(message: string) {
+export async function getChatResponse(message: string, mapState?: { nodes: any[], edges: any[] }) {
   try {
+    let systemContent = "You are a helpful assistant specializing in cognitive mapping, analysis of complex topics, and educational methodologies. Help the user understand concepts, brainstorm ideas for their cognitive maps, and provide thoughtful responses to their questions. Your answers should be concise but comprehensive.";
+    
+    if (mapState && (mapState.nodes.length > 0 || mapState.edges.length > 0)) {
+      systemContent += "\n\nCurrent cognitive map state:\n";
+      systemContent += `Nodes (${mapState.nodes.length}):${mapState.nodes.map(n => `\n- ${n.data.label}: ${n.data.description || 'No description'}`).join('')}`;
+      systemContent += `\n\nConnections (${mapState.edges.length}):${mapState.edges.map(e => `\n- ${e.label || 'Relates to'}`).join('')}`;
+    }
+
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
       messages: [
         {
           role: "system",
-          content: 
-            "You are a helpful assistant specializing in cognitive mapping, analysis of complex topics, and educational methodologies. Help the user understand concepts, brainstorm ideas for their cognitive maps, and provide thoughtful responses to their questions. Your answers should be concise but comprehensive."
+          content: systemContent
         },
         {
           role: "user",

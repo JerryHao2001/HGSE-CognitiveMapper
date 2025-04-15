@@ -7,8 +7,8 @@ export async function generateNodesFromTopic(topic: string): Promise<CustomNode[
   return data.nodes;
 }
 
-export async function sendChatMessage(message: string): Promise<string> {
-  const response = await apiRequest('POST', '/api/chat', { message });
+export async function sendChatMessage(message: string, mapState?: { nodes: any[], edges: any[] }): Promise<string> {
+  const response = await apiRequest('POST', '/api/chat', { message, mapState });
   const data = await response.json();
   return data.response;
 }

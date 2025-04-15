@@ -23,8 +23,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Chat message endpoint
   app.post("/api/chat", async (req, res) => {
     try {
-      const { message } = chatMessageSchema.parse(req.body);
-      const response = await getChatResponse(message);
+      const { message, mapState } = chatMessageSchema.parse(req.body);
+      const response = await getChatResponse(message, mapState);
       res.json({ response });
     } catch (error) {
       console.error("Error in /api/chat:", error);

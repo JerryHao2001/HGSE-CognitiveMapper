@@ -74,6 +74,10 @@ export type TopicAnalysis = z.infer<typeof topicAnalysisSchema>;
 
 export const chatMessageSchema = z.object({
   message: z.string(),
+  mapState: z.optional(z.object({
+    nodes: z.array(z.any()),
+    edges: z.array(z.any())
+  }))
 });
 
 export type ChatMessage = z.infer<typeof chatMessageSchema>;
