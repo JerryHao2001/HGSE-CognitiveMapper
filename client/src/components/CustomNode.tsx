@@ -11,18 +11,11 @@ const CustomNode = ({ data, selected, id }: NodeProps<CustomNodeData>) => {
     >
       {/* One handle on each side that works as both source and target */}
       <Handle 
-        type="source" 
+        type="target" 
         position={Position.Top} 
         className="w-3 h-3 bg-crimson" 
         id="top"
       />
-      <Handle 
-        type="target" 
-        position={Position.Top} 
-        className="w-3 h-3 bg-crimson opacity-0" 
-        id="top"
-      />
-      
       <Handle 
         type="source" 
         position={Position.Right} 
@@ -31,33 +24,16 @@ const CustomNode = ({ data, selected, id }: NodeProps<CustomNodeData>) => {
       />
       <Handle 
         type="target" 
-        position={Position.Right} 
-        className="w-3 h-3 bg-crimson opacity-0" 
-        id="right"
-      />
-      
-      <Handle 
-        type="source" 
         position={Position.Bottom} 
         className="w-3 h-3 bg-crimson" 
         id="bottom"
       />
-      <Handle 
-        type="target" 
-        position={Position.Bottom} 
-        className="w-3 h-3 bg-crimson opacity-0" 
-        id="bottom"
-      />
-      
       <Handle 
         type="source" 
         position={Position.Left} 
         className="w-3 h-3 bg-crimson" 
         id="left"
-      />
-      <Handle 
-        type="target" 
-        position={Position.Left} 
+      /> 
         className="w-3 h-3 bg-crimson opacity-0" 
         id="left"
       />
