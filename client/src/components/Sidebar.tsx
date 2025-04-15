@@ -3,6 +3,7 @@ import { Button } from '../components/ui/button';
 import { Textarea } from '../components/ui/textarea';
 import { Input } from '../components/ui/input';
 import { useMap } from '../context/MapContext';
+const { setInitialNodes, getMapState } = useMap();
 import { generateNodesFromTopic, sendChatMessage } from '../lib/api';
 import { ChevronLeft, ChevronRight, Send, Brain } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
@@ -80,7 +81,8 @@ export default function Sidebar() {
     setIsSending(true);
 
     try {
-      const response = await sendChatMessage(message);
+      const { nodes, edges } = getMapState();
+      const response = await sendChatMessage(message, { nodes, edges });
       const assistantMessage: ChatMessage = {
         id: uuidv4(),
         content: response,
